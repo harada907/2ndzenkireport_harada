@@ -2,32 +2,42 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CardService {
-    private List<Card> cardList = new ArrayList<>(); // コレクションを利用
+    private List<Card> cardList = new ArrayList<>(); 
 
     // 1. Create (登録)
     public void addCard(Card card) {
         cardList.add(card);
-        System.out.println("カードを登録しました。");
+        System.out.println(card.getName() + "を登録しました。");
     }
 
     // 2. Read (一覧・検索)
-    public void displayAllCards() {
-        // 全表示モード
+    public void displayAllCards(){
+    	if(cardList.isEmpty()){
+    		System.out.println("現在、ストレージに登録されているカードはありません。");
+    		return;
+    	}
+    	System.out.println("No. カード名");
+    	for(Card card : cardList) {
+    		System.out.println(card.getID() +"　　"+ card.getName());
+    	}
+    	
     }
     public void searchCards(String keyword) {
-        // 検索表示モード
     }
 
     // 3. Update (更新)
     public void updateQuantity(String id, int newQuantity) {
-        // 所持枚数の更新処理
     }
 
     // 4. Delete (削除)
     public void removeCard(String id) {
-        // カード削除処理
     }
-
+    
+    
+    public int getcardcount(){
+    	return cardList.size();
+    }
+    
     // CSV
     public void saveToCsv(String filePath) {}
     public void loadFromCsv(String filePath) {}

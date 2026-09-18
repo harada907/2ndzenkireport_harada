@@ -19,7 +19,22 @@ public class Menu {
             int choice = InputUtil.readInt("番号を入力してください: ");
 
             switch (choice) {
-                case 1: // 登録_cardService.addCard
+                case 1: 
+                    System.out.println("\n--- カード登録 ---");
+                    String name = InputUtil.readString("カード名を入力: ");
+                    String cost = InputUtil.readString("コストを入力: ");
+                    String civilization = InputUtil.readString("文明を入力: ");
+                    String race = InputUtil.readString("種族を入力: ");
+                    String power = InputUtil.readString("パワーを入力: ");
+                    String cardType = InputUtil.readString("カードタイプを入力: ");
+                    int quantity = InputUtil.readInt("所持枚数を入力: ");
+
+                    
+                    int currentCount = cardService.getcardcount();
+                    String autoID = String.valueOf(currentCount + 1);
+                    Card newCard = new Card(autoID, name, cost, civilization, race, power, cardType, quantity);
+                    
+                    cardService.addCard(newCard);
                     break;
                 case 2: // 検索・表示
                     handleSearchMenu();
