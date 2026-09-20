@@ -9,7 +9,7 @@ public class Menu {
         boolean isRunning = true;
 
         while (isRunning) { // 処理終了後、メニューへ戻るループ
-            System.out.println("\n=== デュエル・マスターズデジタルファイリング ===");
+            System.out.println("=== デュエル・マスターズデジタルファイリング ===");
             System.out.println("1. 登録");
             System.out.println("2. 検索・表示");
             System.out.println("3. 更新");
@@ -20,7 +20,7 @@ public class Menu {
 
             switch (choice) {
                 case 1: 
-                    System.out.println("\n--- カード登録 ---");
+                    System.out.println("--- カード登録 ---");
                     String name = InputUtil.readString("カード名を入力: ");
                     String cost = InputUtil.readString("コストを入力: ");
                     String civilization = InputUtil.readString("文明を入力: ");
@@ -57,13 +57,21 @@ public class Menu {
     private void handleSearchMenu() {
         System.out.println("  1. 全表示");
         System.out.println("  2. 検索表示");
-        int searchChoice = InputUtil.readInt("  表示方法を選択してください: ");
+        int searchChoice = InputUtil.readInt("表示方法を選択してください: ");
         
         if (searchChoice == 1) {
             cardService.displayAllCards();
         } else if (searchChoice == 2) {
-            String keyword = InputUtil.readString("  検索キーワードを入力: ");
-            cardService.searchCards(keyword);
+            String keyword = InputUtil.readString("検索条件を指定してください(指定しない項目はそのままEnter)");
+            String name = InputUtil.readString("カード名:");
+            String cost = InputUtil.readString("コスト:");
+            String civilization = InputUtil.readString("文明:");
+            String race = InputUtil.readString("種族:");
+            String power = InputUtil.readString("パワー:");
+            String cardType = InputUtil.readString("カードタイプ:");
+            
+            System.out.println("検索します...");
+            cardService.searchCards(name,cost,civilization,race,power,cardType);
         } else {
             System.out.println("  無効な選択です。");
         }

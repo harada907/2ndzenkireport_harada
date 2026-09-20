@@ -2,10 +2,10 @@ public class Card {
     private String id;
     private String name;
     private String cost;
-    private String civilization;
-    private String race;
+    private String civilization;//文明
+    private String race;//種族
     private String power;
-    private String cardType;
+    private String cardType;//クリーチャー,呪文,ツインパクト等
     private int quantity; //量
 
     // コンストラクタ
@@ -26,4 +26,9 @@ public class Card {
     public int getQuantity() { return quantity; }
     public void setQuantity(int quantity) { this.quantity = quantity; }
     public String getID() { return id; }
+    public String getCost() {return cost; }
+    public String getCivilization() {return civilization; }
+    public String getRace() {return race; }
+    public String getPower() {return power; }
+    public String getCardType() {return cardType ;}
 }
