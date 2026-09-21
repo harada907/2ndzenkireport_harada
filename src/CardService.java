@@ -47,19 +47,80 @@ public class CardService {
     			System.out.println(card.getID() + " " + card.getName() +" "+ card.getQuantity() + "枚");
     			found = true;
     		}
-    		
     	}
+    }
+    public void displayCardById(String id) {
+    	boolean found = false;
+    	
+    	for(Card card:cardList) {
+    		if(card.getID().equals(id)) {
+    			System.out.println(" カード詳細情報------");
+                System.out.println("ID: " + card.getID());
+                System.out.println("カード名: " + card.getName());
+                System.out.println("コスト: " + card.getCost());
+                System.out.println("文明: " + card.getCivilization());
+                System.out.println("種族: " + card.getRace());
+                System.out.println("パワー: " + card.getPower());
+                System.out.println("カードタイプ: " + card.getCardType());
+                System.out.println("所持枚数: " + card.getQuantity() + "枚");
+                System.out.println("---------------------");
+                found = true;
+                break;
+    		}
+    	}
+    	if(!found) {
+    		System.out.println("エラー:指定されたID("+ id +"のカードは見つかりませんでした。" );
+    	}
+    
     }
 
     // 3. Update (更新)
-    public void updateQuantity(String id, int newQuantity) {
+    public void updateCard(String id, String name, String cost, String civilization,
+    				String race, String power, String cardType, String quantityStr) {
     	boolean found = false;
     	
+    	for(Card card : cardList) {
+    		if(card.getID().equals(id)) {
+    			
+    			if(!name.isEmpty()) {card.setName(name);}
+    			if(!cost.isEmpty()) {card.setCost(cost);}
+    			if(!civilization.isEmpty()) {card.setCivilization(civilization);}
+    			if(!race.isEmpty()) {card.setRace(race);}
+    			if(!power.isEmpty()) {card.setPower(power);}
+    			if(!cardType.isEmpty()) {card.setCardType(cardType);}
+    			//str→int変換
+    			if(!quantityStr.isEmpty()) {
+				card.setQuantity(Integer.parseInt(quantityStr));
+    			}
+    			System.out.println("カードID:" + id + "の情報を更新しました");
+    			found = true;
+    			break;
+    		}
+    	}
+    	if(!found) {
+    		System.out.println("指定されたID("+ id +")のカードは見つかりませんでした");
+    	}
     }
 
     // 4. Delete (削除)
     public void removeCard(String id) {
+    	Card tergetCard = null;
+    	
+    	for(Card card : cardList) {
+    		if(card.getID().equals(id)) {
+    			tergetCard = card;
+    			break;
+    		}
+    	}
+    	
+    	if(tergetCard != null) {
+    		cardList.remove(tergetCard);
+    		System.out.println("カードID: "+ id +"のデータを削除しました。");
+    	}else {
+			System.out.println("エラー:指定されたID("+ id +")のカードは見つかりませんでした。");
+		}
     }
+    
     
     
     public int getcardcount(){

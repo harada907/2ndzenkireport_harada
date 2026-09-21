@@ -31,4 +31,12 @@ public class Card {
     public String getRace() {return race; }
     public String getPower() {return power; }
     public String getCardType() {return cardType ;}
+    
+    public void setName(String name) {this.name = name;}
+    public void setCost(String cost) {this.cost = cost;}
+    public void setCivilization(String civilization) {this.civilization = civilization;}
+    public void setRace(String race) {this.race = race;}
+    public void setPower(String power) {this.power = power;}
+    public void setCardType(String cardType) {this.cardType = cardType;}
+    
 }

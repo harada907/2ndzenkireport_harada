@@ -9,7 +9,7 @@ public class Menu {
         boolean isRunning = true;
 
         while (isRunning) { // 処理終了後、メニューへ戻るループ
-            System.out.println("=== デュエル・マスターズデジタルファイリング ===");
+            System.out.println("--- デュエル・マスターズデジタルファイリング ---");
             System.out.println("1. 登録");
             System.out.println("2. 検索・表示");
             System.out.println("3. 更新");
@@ -40,10 +40,23 @@ public class Menu {
                     handleSearchMenu();
                     break;
                 case 3: // 更新_cardService.updateQuantity
+                	System.out.println("-------カード情報の更新------");
+                	String updateId = InputUtil.readString("更新したいカードのIDを入力してください:");
                 	
-                	
-                    break;
+                	System.out.println("新しいデータを入力してください(変更しない項目はそのままEnter)");
+                	String upName = InputUtil.readString("新しいカード名:");
+                	String upCost = InputUtil.readString("新しいコスト:");
+                	String upciv = InputUtil.readString("新しい文明:");
+                	String upRace = InputUtil.readString("新しい種族:");
+                	String upPower = InputUtil.readString("新しいパワー:");
+                	String upType = InputUtil.readString("新しいカードタイプ:");
+                	String upQuantity = InputUtil.readString("新しい所持枚数:");
+                	cardService.updateCard(updateId, upName,upCost,upciv,upRace,upPower,upType,upQuantity);
+                	break;
                 case 4: // 削除_cardService.removeCard
+                	System.out.println("---カードの削除---");
+                	String deleteId = InputUtil.readString("削除したいカードのIDを入力してください:");
+                	cardService.removeCard(deleteId);
                     break;
                 case 0: // 終了
                     System.out.println("終了します。");
@@ -61,6 +74,7 @@ public class Menu {
     private void handleSearchMenu() {
         System.out.println("  1. 全表示");
         System.out.println("  2. 検索表示");
+        System.out.println("  3. IDでカード詳細表示");
         int searchChoice = InputUtil.readInt("表示方法を選択してください: ");
         
         if (searchChoice == 1) {
@@ -76,7 +90,10 @@ public class Menu {
             
             System.out.println("検索します...");
             cardService.searchCards(name,cost,civilization,race,power,cardType);
-        } else {
+        } else if(searchChoice == 3){
+        	String searchId = InputUtil.readString("詳細を表示したいカードのIDを入力してください");
+        	cardService.displayCardById(searchId);
+        }else {	
             System.out.println("  無効な選択です。");
         }
     }
