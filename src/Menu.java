@@ -40,13 +40,17 @@ public class Menu {
                     handleSearchMenu();
                     break;
                 case 3: // 更新_cardService.updateQuantity
+                	
+                	
                     break;
                 case 4: // 削除_cardService.removeCard
                     break;
                 case 0: // 終了
-                    isRunning = false;
                     System.out.println("終了します。");
+                    cardService.saveToCsv();
+                    isRunning = false;
                     break;
+                    
                 default:
                     System.out.println("正しい番号を入力してください。");
             }

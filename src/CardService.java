@@ -1,3 +1,9 @@
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,9 +22,9 @@ public class CardService {
     		System.out.println("現在、ストレージに登録されているカードはありません。");
     		return;
     	}
-    	System.out.println("No. カード名");
+    	System.out.println("No. カード名 所持枚数");
     	for(Card card : cardList) {
-    		System.out.println(card.getID() +" "+ card.getName());
+    		System.out.println(card.getID() +" "+ card.getName()+" "+card.getQuantity() + "枚");
     	}
     	
     }
@@ -47,6 +53,8 @@ public class CardService {
 
     // 3. Update (更新)
     public void updateQuantity(String id, int newQuantity) {
+    	boolean found = false;
+    	
     }
 
     // 4. Delete (削除)
@@ -59,6 +67,48 @@ public class CardService {
     }
     
     // CSV
-    public void saveToCsv(String filePath) {}
-    public void loadFromCsv(String filePath) {}
+    public void saveToCsv() {
+    	String filePath = "card.csv";
+    	try(PrintWriter writer = new PrintWriter(new FileWriter(filePath))){
+    		writer.println("ID,名前,コスト,文明,種族,パワー,カードタイプ,所持枚数");
+    		for(Card card : cardList) {
+    			String line = card.getID()+","+card.getName()+","+card.getCost()+","+
+    					card.getCivilization()+","+card.getRace()+","+card.getPower()+","+
+    					card.getCardType()+","+card.getQuantity();
+    					
+    			writer.println(line);
+    		}
+    		System.out.println("データをCSVファイル("+ filePath +")に保存しました。");
+    	} catch(IOException e) {
+    		System.out.println("ファイルの保存中にエラーが発生しました:"+ e.getMessage());
+    	}
+    }
+    public void loadFromCsv() {
+    	String filePath = "card.csv";
+    	File file = new File(filePath);
+    	if(!file.exists()) {
+    		return;
+    	}
+    	try(BufferedReader reader = new BufferedReader(new FileReader(file))){
+    		String line = reader.readLine();
+    		
+    		while((line = reader.readLine()) != null) {
+    			String[] data = line.split(",");
+    			
+    			String id = data[0];
+    			String name = data[1];
+    			String cost = data[2];
+    			String civilization = data[3];
+    			String race = data[4];
+    			String power = data[5];
+    			String cardType = data[6];
+
+    			int quantity = Integer.parseInt(data[7]);
+    			Card loadedCard = new Card(id, name, cost, civilization, race, power, cardType, quantity);
+    			cardList.add(loadedCard);
+    		}
+    	}catch(Exception e) {
+    		System.out.println("読み込み中にエラーが発生しました"+ e.getMessage());
+    	}
+    }
 }
